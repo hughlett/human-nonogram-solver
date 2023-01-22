@@ -40,12 +40,11 @@ export function generateDomain(
   nums: Array<number>,
   length: number
 ): Array<Set<number>> {
-  const domain: Array<Set<number>> = []
-
   if (nums.length == 1 && nums[0] == 0) {
-    return domain
+    return [new Set()]
   }
 
+  const domain: Array<Set<number>> = []
   const sum = nums.reduce((a, b) => a + b)
 
   generateDomainHelper(nums, domain, new Set(), 0, -1, 0, sum, length)
