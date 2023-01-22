@@ -1,7 +1,7 @@
-import { generateDomain } from '../src/utils'
+import { generateDomain } from '@/utils'
 
 describe('Generating domains', () => {
-  test('no values', () => {
+  test('with no values returns an empty array', () => {
     expect(generateDomain([0], 1)).toEqual([])
   })
 
