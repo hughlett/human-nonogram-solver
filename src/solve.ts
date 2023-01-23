@@ -1,4 +1,4 @@
-import { generateAllDomains } from './utils'
+import { generateAllDomains } from './util/domain'
 
 export function solve(
   rows: Array<Array<number>>,

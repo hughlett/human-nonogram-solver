@@ -1,4 +1,5 @@
-import { findConstraint, generateAllDomains, generateDomain } from '@/utils'
+import { findConstraint } from '@/util/constraint'
+import { generateAllDomains, generateDomain } from '@/util/domain'
 
 test('domains generated correctly', () => {
   const actual = generateAllDomains([[1, 2], [3], [0], [5]], 5)

@@ -1,6 +1,3 @@
-import { generateDomain } from '@/utils'
+import { findConstraint } from '@/util/constraint'
 
-const a = generateDomain([1, 1], 5)
-const b = generateDomain([1], 5)
-
-console.log(a, b)
+console.log(findConstraint([new Set()]))
