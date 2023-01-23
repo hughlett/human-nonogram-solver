@@ -1,3 +1,4 @@
+import { applyConstraint, findConstraint } from './util/constraint'
 import { generateAllDomains } from './util/domain'
 
 export function solve(
@@ -8,4 +9,6 @@ export function solve(
 ): Array<Set<number>> {
   const rowDomains = generateAllDomains(rows, rowLength)
   const columnDomains = generateAllDomains(columns, columnLength)
+
+  return []
 }
