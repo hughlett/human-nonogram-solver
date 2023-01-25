@@ -48,6 +48,7 @@ export function generateDomain(
   const sum = nums.reduce((a, b) => a + b)
 
   generateDomainHelper(nums, domain, new Set(), 0, -1, 0, sum, length)
+
   return domain
 }
 
@@ -55,6 +56,9 @@ export function generateAllDomains(nums: Array<Array<number>>, length: number) {
   const cache = new Map<string, Array<Set<number>>>()
 
   return nums.map((x) => {
+    // Original low-performance solution
+    // generateDomain(x, length)
+
     const patternString = x.toString()
     const cacheHit = cache.get(patternString)
 
