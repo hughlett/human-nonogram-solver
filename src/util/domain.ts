@@ -52,15 +52,17 @@ export function generateDomain(
 }
 
 export function generateAllDomains(nums: Array<Array<number>>, length: number) {
-  const cache = new Map<Array<number>, Array<Set<number>>>()
+  const cache = new Map<string, Array<Set<number>>>()
 
   return nums.map((x) => {
-    const cacheHit = cache.get(x)
+    const patternString = x.toString()
+    const cacheHit = cache.get(patternString)
+
     if (cacheHit) {
       return cacheHit
     } else {
       const domain = generateDomain(x, length)
-      cache.set(x, domain)
+      cache.set(patternString, domain)
       return domain
     }
   })
