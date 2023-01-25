@@ -2,11 +2,12 @@ import { findConstraint } from '@/util/constraint'
 import { generateAllDomains, generateDomain } from '@/util/domain'
 
 test('domains generated correctly', () => {
-  const actual = generateAllDomains([[1, 2], [3], [0], [5]], 5)
+  const actual = generateAllDomains([[1, 2], [3], [0], [5], [5]], 5)
   const expected = [
     [new Set([0, 2, 3]), new Set([0, 3, 4]), new Set([1, 3, 4])],
     [new Set([0, 1, 2]), new Set([1, 2, 3]), new Set([2, 3, 4])],
     [new Set()],
+    [new Set([0, 1, 2, 3, 4])],
     [new Set([0, 1, 2, 3, 4])],
   ]
   expect(actual).toEqual(expected)
