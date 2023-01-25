@@ -52,5 +52,16 @@ export function generateDomain(
 }
 
 export function generateAllDomains(nums: Array<Array<number>>, length: number) {
-  return nums.map((x) => generateDomain(x, length))
+  const cache = new Map<Array<number>, Array<Set<number>>>()
+
+  return nums.map((x) => {
+    const cacheHit = cache.get(x)
+    if (cacheHit) {
+      return cacheHit
+    } else {
+      const domain = generateDomain(x, length)
+      cache.set(x, domain)
+      return domain
+    }
+  })
 }
