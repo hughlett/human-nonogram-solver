@@ -4,5 +4,9 @@
   "editor.formatOnType": false,
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
-  "files.autoSave": "onFocusChange"
+  "files.autoSave": "onWindowChange",
+  "jest.autoRun": { "watch": false, "onSave": "test-only" },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  }
 }
