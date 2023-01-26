@@ -1,8 +1,4 @@
-import {
-  applyPositiveConstraint,
-  applyNegativeConstraint,
-  findConstraint,
-} from './util/constraint'
+import { applyConstraint, findConstraint } from './util/constraint'
 import { generateAllDomains } from './util/domain'
 
 export function solve(
@@ -30,42 +26,34 @@ export function solve(
     rowDomains.forEach((domain, index) => {
       if (!solvedRows.has(index)) {
         findConstraint(domain).forEach((knownValue) => {
-          columnDomains[knownValue] = applyPositiveConstraint(
-            new Set([index]),
-            columnDomains[knownValue]
-          )
+          columnDomains[Math.abs(knownValue) - 1] =
+            knownValue > 0
+              ? applyConstraint(index + 1, columnDomains[knownValue - 1])
+              : applyConstraint(
+                  -(index + 1),
+                  columnDomains[Math.abs(knownValue) - 1]
+                )
         })
       }
 
       if (domain.length === 1) {
         solvedRows.add(index)
-
-        const domainSolution = domain[0]
-        for (let i = 0; i < rowLength; i++) {
-          if (!domainSolution.has(i)) {
-            columnDomains[i] = applyNegativeConstraint(index, columnDomains[i])
-          }
-        }
       }
     })
     columnDomains.forEach((domain, index) => {
       if (!solvedColumns.has(index)) {
         findConstraint(domain).forEach((knownValue) => {
-          rowDomains[knownValue] = applyPositiveConstraint(
-            new Set([index]),
-            rowDomains[knownValue]
-          )
+          rowDomains[Math.abs(knownValue) - 1] =
+            knownValue > 0
+              ? applyConstraint(index + 1, rowDomains[knownValue - 1])
+              : applyConstraint(
+                  -(index + 1),
+                  rowDomains[Math.abs(knownValue) - 1]
+                )
         })
       }
       if (domain.length === 1) {
         solvedColumns.add(index)
-
-        const domainSolution = domain[0]
-        for (let i = 0; i < columnLength; i++) {
-          if (!domainSolution.has(i)) {
-            rowDomains[i] = applyNegativeConstraint(index, rowDomains[i])
-          }
-        }
       }
     })
   }

@@ -21,7 +21,7 @@ function generateDomainHelper(
     row.forEach((value) => rowCopy.add(value))
 
     for (let j = 0; j < nums[index]; j++) {
-      rowCopy.add(i + j)
+      rowCopy.add(i + j + 1)
     }
     generateDomainHelper(
       nums,
@@ -48,6 +48,14 @@ export function generateDomain(
   const sum = nums.reduce((a, b) => a + b)
 
   generateDomainHelper(nums, domain, new Set(), 0, -1, 0, sum, length)
+
+  domain.forEach((set) => {
+    for (let i = 1; i <= length; i++) {
+      if (!set.has(i)) {
+        set.add(-i)
+      }
+    }
+  })
 
   return domain
 }
