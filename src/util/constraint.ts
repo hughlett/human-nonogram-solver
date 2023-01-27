@@ -22,15 +22,17 @@ export function attemptDomainReduction(
 ): Set<number> {
   const constraints = searchForConstraints(domain)
   const visitedDomainIndexes: Set<number> = new Set()
-  constraints.forEach((knownValue) => {
-    siblingDomains[Math.abs(knownValue) - 1] =
-      knownValue > 0
-        ? applyConstraint(index + 1, siblingDomains[knownValue - 1])
+
+  constraints.forEach((constraint) => {
+    siblingDomains[Math.abs(constraint) - 1] =
+      constraint > 0
+        ? applyConstraint(index + 1, siblingDomains[constraint - 1])
         : applyConstraint(
             -(index + 1),
-            siblingDomains[Math.abs(knownValue) - 1]
+            siblingDomains[Math.abs(constraint) - 1]
           )
-    visitedDomainIndexes.add(Math.abs(knownValue) - 1)
+    visitedDomainIndexes.add(Math.abs(constraint) - 1)
   })
+
   return visitedDomainIndexes
 }
