@@ -1,35 +1,35 @@
 function generateDomainHelper(
-  nums: Array<number>,
+  pattern: Array<number>,
   domain: Array<Set<number>>,
-  row: Set<number>,
+  domainValue: Set<number>,
   lastStart: number,
-  lastNum: number,
-  index: number,
+  lastPatternValue: number,
+  patternIndex: number,
   sum: number,
   length: number
 ) {
   if (sum == 0) {
-    return domain.push(row)
+    return domain.push(domainValue)
   }
-  sum -= nums[index]
+  sum -= pattern[patternIndex]
 
-  const start = lastStart + lastNum + 1
-  const end = length - sum - nums.length + index - nums[index] + 2
+  const start = lastStart + lastPatternValue + 1
+  const end =
+    length - sum - pattern.length + patternIndex - pattern[patternIndex] + 2
 
   for (let i = start; i < end; i++) {
-    const rowCopy: Set<number> = new Set()
-    row.forEach((value) => rowCopy.add(value))
+    const rowCopy: Set<number> = new Set(domainValue)
 
-    for (let j = 0; j < nums[index]; j++) {
+    for (let j = 0; j < pattern[patternIndex]; j++) {
       rowCopy.add(i + j + 1)
     }
     generateDomainHelper(
-      nums,
+      pattern,
       domain,
       rowCopy,
       i,
-      nums[index],
-      index + 1,
+      pattern[patternIndex],
+      patternIndex + 1,
       sum,
       length
     )
@@ -37,17 +37,17 @@ function generateDomainHelper(
 }
 
 export function generateDomain(
-  nums: Array<number>,
+  pattern: Array<number>,
   length: number
 ): Array<Set<number>> {
-  if (nums.length == 1 && nums[0] == 0) {
+  if (pattern.length == 1 && pattern[0] == 0) {
     return [new Set()]
   }
 
   const domain: Array<Set<number>> = []
-  const sum = nums.reduce((a, b) => a + b)
+  const sum = pattern.reduce((a, b) => a + b)
 
-  generateDomainHelper(nums, domain, new Set(), 0, -1, 0, sum, length)
+  generateDomainHelper(pattern, domain, new Set(), 0, -1, 0, sum, length)
 
   domain.forEach((set) => {
     for (let i = 1; i <= length; i++) {
@@ -60,13 +60,13 @@ export function generateDomain(
   return domain
 }
 
-export function generateAllDomains(nums: Array<Array<number>>, length: number) {
+export function generateAllDomains(
+  patterns: Array<Array<number>>,
+  length: number
+) {
   const cache = new Map<string, Array<Set<number>>>()
 
-  return nums.map((x) => {
-    // Original low-performance solution
-    // generateDomain(x, length)
-
+  return patterns.map((x) => {
     const patternString = x.toString()
     const cacheHit = cache.get(patternString)
 
