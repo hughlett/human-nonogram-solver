@@ -14,3 +14,20 @@ export function applyConstraint(
     return domainValue.has(constraint)
   })
 }
+
+export function reduceSiblingDomain(
+  domain: Array<Set<number>>,
+  index: number,
+  siblingDomains: Array<Array<Set<number>>>
+) {
+  const constraints = searchForConstraints(domain)
+  constraints.forEach((knownValue) => {
+    siblingDomains[Math.abs(knownValue) - 1] =
+      knownValue > 0
+        ? applyConstraint(index + 1, siblingDomains[knownValue - 1])
+        : applyConstraint(
+            -(index + 1),
+            siblingDomains[Math.abs(knownValue) - 1]
+          )
+  })
+}
