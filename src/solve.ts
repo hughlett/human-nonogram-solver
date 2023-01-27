@@ -1,4 +1,4 @@
-import { reduceSiblingDomain } from './util/constraint'
+import { attemptDomainReduction } from './util/constraint'
 import { generateAllDomains } from './util/domain'
 
 export function solve(
@@ -7,39 +7,52 @@ export function solve(
   columns: Array<Array<number>>,
   columnLength: number
 ): Array<Set<number>> {
-  const generateStart = performance.now()
-
   const rowDomains = generateAllDomains(rows, rowLength)
   const columnDomains = generateAllDomains(columns, columnLength)
 
   const solvedRows = new Set()
   const solvedColumns = new Set()
 
-  const generateEnd = performance.now()
-  console.log(`Time to generate: ${generateEnd - generateStart} ms`)
-
-  const solveStart = performance.now()
+  const rowsToVisit = new Set(Array.from(Array(rows.length).keys()))
+  const comulmnsToVisit = new Set(Array.from(Array(columns.length).keys()))
 
   while (
     solvedRows.size !== rows.length &&
     solvedColumns.size !== columns.length
   ) {
-    rowDomains.forEach((domain, index) => {
-      reduceSiblingDomain(domain, index, columnDomains)
-      if (domain.length === 1) {
+    rowsToVisit.forEach((index) => {
+      rowsToVisit.delete(index)
+      const visitedColumns = attemptDomainReduction(
+        rowDomains[index],
+        index,
+        columnDomains
+      )
+      if (rowDomains[index].length === 1) {
         solvedRows.add(index)
       }
+
+      visitedColumns.forEach((index) => {
+        comulmnsToVisit.add(index)
+      })
     })
-    columnDomains.forEach((domain, index) => {
-      reduceSiblingDomain(domain, index, rowDomains)
-      if (domain.length === 1) {
+
+    comulmnsToVisit.forEach((index) => {
+      comulmnsToVisit.delete(index)
+      const visitedRows = attemptDomainReduction(
+        columnDomains[index],
+        index,
+        rowDomains
+      )
+      if (columnDomains[index].length === 1) {
         solvedColumns.add(index)
       }
+
+      visitedRows.forEach((index) => {
+        rowsToVisit.add(index)
+      })
     })
   }
 
-  const solveEnd = performance.now()
-  console.log(`Time to solve: ${solveEnd - solveStart} ms`)
-
+  console.log(solvedRows, solvedColumns)
   return []
 }
