@@ -1,4 +1,4 @@
-import { applyConstraint, findConstraint } from './util/constraint'
+import { applyConstraint, searchForConstraints } from './util/constraint'
 import { generateAllDomains } from './util/domain'
 
 export function solve(
@@ -8,16 +8,17 @@ export function solve(
   columnLength: number
 ): Array<Set<number>> {
   const generateStart = performance.now()
+
   const rowDomains = generateAllDomains(rows, rowLength)
   const columnDomains = generateAllDomains(columns, columnLength)
-  const generateEnd = performance.now()
-
-  console.log(`Time to generate: ${generateEnd - generateStart} ms`)
-
-  const solveStart = performance.now()
 
   const solvedRows = new Set()
   const solvedColumns = new Set()
+
+  const generateEnd = performance.now()
+  console.log(`Time to generate: ${generateEnd - generateStart} ms`)
+
+  const solveStart = performance.now()
 
   while (
     solvedRows.size !== rows.length &&
@@ -25,7 +26,8 @@ export function solve(
   ) {
     rowDomains.forEach((domain, index) => {
       if (!solvedRows.has(index)) {
-        findConstraint(domain).forEach((knownValue) => {
+        const constraints = searchForConstraints(domain)
+        constraints.forEach((knownValue) => {
           columnDomains[Math.abs(knownValue) - 1] =
             knownValue > 0
               ? applyConstraint(index + 1, columnDomains[knownValue - 1])
@@ -35,14 +37,14 @@ export function solve(
                 )
         })
       }
-
       if (domain.length === 1) {
         solvedRows.add(index)
       }
     })
     columnDomains.forEach((domain, index) => {
       if (!solvedColumns.has(index)) {
-        findConstraint(domain).forEach((knownValue) => {
+        const constraints = searchForConstraints(domain)
+        constraints.forEach((knownValue) => {
           rowDomains[Math.abs(knownValue) - 1] =
             knownValue > 0
               ? applyConstraint(index + 1, rowDomains[knownValue - 1])
