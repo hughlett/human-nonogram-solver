@@ -1,7 +1,8 @@
 {
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/jest": "^29.2.6",
