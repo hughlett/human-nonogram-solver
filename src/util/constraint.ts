@@ -15,7 +15,7 @@ export function applyConstraint(
   })
 }
 
-export function attemptDomainReduction(
+export function reduceDomain(
   domain: Array<Set<number>>,
   index: number,
   siblingDomains: Array<Array<Set<number>>>
@@ -24,13 +24,11 @@ export function attemptDomainReduction(
   const visitedDomainIndexes: Set<number> = new Set()
 
   constraints.forEach((constraint) => {
-    siblingDomains[Math.abs(constraint) - 1] =
-      constraint > 0
-        ? applyConstraint(index + 1, siblingDomains[constraint - 1])
-        : applyConstraint(
-            -(index + 1),
-            siblingDomains[Math.abs(constraint) - 1]
-          )
+    const foo = constraint > 0 ? index + 1 : -(index + 1)
+    const bar = Math.abs(constraint) - 1
+
+    siblingDomains[bar] = applyConstraint(foo, siblingDomains[bar])
+
     visitedDomainIndexes.add(Math.abs(constraint) - 1)
   })
 

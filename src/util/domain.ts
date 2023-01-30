@@ -1,81 +1,73 @@
 function generateDomainHelper(
-  pattern: Array<number>,
+  clue: Array<number>,
+  domainLength: number,
   domain: Array<Set<number>>,
-  domainValue: Set<number>,
-  lastStart: number,
-  lastPatternValue: number,
-  patternIndex: number,
-  sum: number,
-  length: number
+  value: Set<number>,
+  lastStartIndex: number,
+  lastClueValue: number,
+  clueIndex: number,
+  remainingClueSum: number
 ) {
-  if (sum == 0) {
-    return domain.push(domainValue)
+  if (remainingClueSum == 0) {
+    for (let i = 1; i <= domainLength; i++) {
+      if (!value.has(i)) {
+        value.add(-i)
+      }
+    }
+    return domain.push(value)
   }
-  sum -= pattern[patternIndex]
 
-  const start = lastStart + lastPatternValue + 1
-  const end =
-    length - sum - pattern.length + patternIndex - pattern[patternIndex] + 2
+  remainingClueSum -= clue[clueIndex]
 
-  for (let i = start; i < end; i++) {
-    const rowCopy: Set<number> = new Set(domainValue)
+  const startIndex = lastStartIndex + lastClueValue + 1
+  const endIndex =
+    domainLength -
+    remainingClueSum -
+    clue[clueIndex] -
+    clue.length +
+    clueIndex +
+    1
 
-    for (let j = 0; j < pattern[patternIndex]; j++) {
-      rowCopy.add(i + j + 1)
+  for (let i = startIndex; i <= endIndex; i++) {
+    const valueCopy = new Set(value)
+
+    for (let j = 0; j < clue[clueIndex]; j++) {
+      valueCopy.add(i + j + 1)
     }
     generateDomainHelper(
-      pattern,
+      clue,
+      domainLength,
       domain,
-      rowCopy,
+      valueCopy,
       i,
-      pattern[patternIndex],
-      patternIndex + 1,
-      sum,
-      length
+      clue[clueIndex],
+      clueIndex + 1,
+      remainingClueSum
     )
   }
 }
 
 export function generateDomain(
-  pattern: Array<number>,
-  length: number
+  clue: Array<number>,
+  domainLength: number
 ): Array<Set<number>> {
-  if (pattern.length == 1 && pattern[0] == 0) {
+  if (clue.length == 1 && clue[0] == 0) {
     return [new Set()]
   }
 
   const domain: Array<Set<number>> = []
-  const sum = pattern.reduce((a, b) => a + b)
+  const clueSum = clue.reduce((a, b) => a + b)
 
-  generateDomainHelper(pattern, domain, new Set(), 0, -1, 0, sum, length)
-
-  domain.forEach((set) => {
-    for (let i = 1; i <= length; i++) {
-      if (!set.has(i)) {
-        set.add(-i)
-      }
-    }
-  })
+  generateDomainHelper(clue, domainLength, domain, new Set(), 0, -1, 0, clueSum)
 
   return domain
 }
 
 export function generateAllDomains(
-  patterns: Array<Array<number>>,
-  length: number
-) {
-  const cache = new Map<string, Array<Set<number>>>()
-
-  return patterns.map((x) => {
-    const patternString = x.toString()
-    const cacheHit = cache.get(patternString)
-
-    if (cacheHit) {
-      return cacheHit
-    } else {
-      const domain = generateDomain(x, length)
-      cache.set(patternString, domain)
-      return domain
-    }
+  clues: Array<Array<number>>,
+  domainLength: number
+): Array<Array<Set<number>>> {
+  return clues.map((clue) => {
+    return generateDomain(clue, domainLength)
   })
 }

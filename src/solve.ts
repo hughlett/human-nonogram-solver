@@ -1,4 +1,4 @@
-import { attemptDomainReduction } from './util/constraint'
+import { reduceDomain } from './util/constraint'
 import { generateAllDomains } from './util/domain'
 
 export function solve(
@@ -6,7 +6,7 @@ export function solve(
   rowLength: number,
   columns: Array<Array<number>>,
   columnLength: number
-): Array<Set<number>> {
+) {
   const rowDomains = generateAllDomains(rows, rowLength)
   const columnDomains = generateAllDomains(columns, columnLength)
 
@@ -21,12 +21,12 @@ export function solve(
     solvedColumns.size !== columns.length
   ) {
     rowsToVisit.forEach((index) => {
-      rowsToVisit.delete(index)
-      const visitedColumns = attemptDomainReduction(
+      const visitedColumns = reduceDomain(
         rowDomains[index],
         index,
         columnDomains
       )
+
       if (rowDomains[index].length === 1) {
         solvedRows.add(index)
       }
@@ -34,15 +34,13 @@ export function solve(
       visitedColumns.forEach((index) => {
         comulmnsToVisit.add(index)
       })
+
+      rowsToVisit.delete(index)
     })
 
     comulmnsToVisit.forEach((index) => {
-      comulmnsToVisit.delete(index)
-      const visitedRows = attemptDomainReduction(
-        columnDomains[index],
-        index,
-        rowDomains
-      )
+      const visitedRows = reduceDomain(columnDomains[index], index, rowDomains)
+
       if (columnDomains[index].length === 1) {
         solvedColumns.add(index)
       }
@@ -50,9 +48,10 @@ export function solve(
       visitedRows.forEach((index) => {
         rowsToVisit.add(index)
       })
+
+      comulmnsToVisit.delete(index)
     })
   }
 
-  console.log(solvedRows, solvedColumns)
-  return []
+  return
 }
