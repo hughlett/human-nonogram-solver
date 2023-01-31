@@ -1,5 +1,5 @@
-import { reduceDomain } from './util/constraint'
-import { generateAllDomains } from './util/domain'
+import { reduceDomain } from './utils/constraint'
+import { generateAllDomains } from './utils/domain'
 
 export function solve(
   rows: Array<Array<number>>,
