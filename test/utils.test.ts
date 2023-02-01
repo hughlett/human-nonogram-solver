@@ -1,5 +1,5 @@
-import { searchForConstraints } from '@/utils/constraint'
-import { generateAllDomains, generateDomain } from '@/utils/domain'
+import { searchForConstraints } from '@/constraint'
+import { generateAllDomains, generateDomain } from '@/domain'
 
 test('domains generated correctly', () => {
   const actual = generateAllDomains([[1, 2], [3], [0], [5], [5]], 5)
