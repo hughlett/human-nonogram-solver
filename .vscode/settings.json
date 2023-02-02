@@ -1,12 +1,12 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnPaste": false,
-  "editor.formatOnType": false,
-  "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "file",
-  "files.autoSave": "onWindowChange",
-  "jest.autoRun": { "watch": false, "onSave": "test-only" },
   "editor.codeActionsOnSave": {
     "source.fixAll": true
-  }
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnType": false,
+  "files.autoSave": "onWindowChange",
+  "jest.autoRun": { "watch": false, "onSave": "test-only" }
 }

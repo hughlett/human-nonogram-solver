@@ -5,7 +5,7 @@ module.exports = {
     jest: true,
   },
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  ignorePatterns: ['/dist/**/*', '/coverage/**/*', '/node_modules/**/*'],
+  ignorePatterns: ['/lib/**/*', '/coverage/**/*', '/node_modules/**/*'],
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
