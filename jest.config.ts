@@ -5,7 +5,6 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   collectCoverage: true,
-  modulePathIgnorePatterns: ['/lib/'],
 }
 
 export default config
