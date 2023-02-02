@@ -1,5 +1,5 @@
 {
-  "name": "@drew-hughlett/simple-nonogram-solver",
+  "name": "@drew-hughlett/human-nonogram-solver",
   "version": "1.0.1",
   "repository": "git@github.com:drewrh/picross-solver.git",
   "author": "Drew Hughlett <drewrh04@gmail.com>",
