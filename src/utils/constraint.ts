@@ -17,17 +17,21 @@ export function applyConstraint(
 
 export function reduceDomain(
   domain: Array<Set<number>>,
-  index: number,
+  domainIndex: number,
   siblingDomains: Array<Array<Set<number>>>
 ): Set<number> {
   const constraints = searchForConstraints(domain)
   const visitedDomainIndexes: Set<number> = new Set()
 
   constraints.forEach((constraint) => {
-    const foo = constraint > 0 ? index + 1 : -(index + 1)
-    const bar = Math.abs(constraint) - 1
+    const siblingConstraint =
+      constraint > 0 ? domainIndex + 1 : -(domainIndex + 1)
+    const siblingDomainIndex = Math.abs(constraint) - 1
 
-    siblingDomains[bar] = applyConstraint(foo, siblingDomains[bar])
+    siblingDomains[siblingDomainIndex] = applyConstraint(
+      siblingConstraint,
+      siblingDomains[siblingDomainIndex]
+    )
 
     visitedDomainIndexes.add(Math.abs(constraint) - 1)
   })
