@@ -37,6 +37,7 @@
     "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
     "build:cjs": "tsc -p ./configs/tsconfig.cjs.json",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix-dry-run": "eslint --fix-dry-run .",
     "lint:fix": "eslint --fix .",
