@@ -1,9 +1,18 @@
 {
   "name": "@drew-hughlett/human-nonogram-solver",
-  "version": "1.0.1",
-  "repository": "git@github.com:drewrh/picross-solver.git",
-  "author": "Drew Hughlett <drewrh04@gmail.com>",
+  "version": "1.0.0",
+  "description": "A simple nonogram solver meant for solving human friendly puzzles",
+  "keywords": [
+    "nonogram",
+    "picross",
+    "paint-by-numbers",
+    "hanjie",
+    "griddlers"
+  ],
+  "homepage": "https://github.com/drewrh/human-nonogram-solver#readme",
+  "bugs": "https://github.com/drewrh/human-nonogram-solver/issues",
   "license": "MIT",
+  "author": "Drew Hughlett <drewrh04@gmail.com> (https://drewhughlett.com/)",
   "exports": {
     ".": {
       "import": {
@@ -17,13 +26,12 @@
     }
   },
   "types": "./lib/cjs/types/index.d.ts",
-  "main": "./lib/cjs/index.js",
   "files": [
     "lib/**/*"
   ],
+  "main": "./lib/cjs/index.js",
+  "repository": "github:drewrh/human-nonogram-solver",
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage",
     "clean": "rm -rf ./lib",
     "build": "npm-run-all clean build:esm build:cjs",
     "build:esm": "tsc -p ./configs/tsconfig.esm.json && mv lib/esm/index.js lib/esm/index.mjs",
@@ -31,7 +39,9 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "lint:fix-dry-run": "eslint --fix-dry-run .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^29.2.6",
