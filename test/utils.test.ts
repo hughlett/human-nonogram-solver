@@ -1,4 +1,4 @@
-import { searchForConstraints } from '../src/utils/constraint'
+import { applyConstraint, searchForConstraints } from '../src/utils/constraint'
 import { generateAllDomains, generateDomain } from '../src/utils/domain'
 
 test('domains generated correctly', () => {
@@ -26,6 +26,7 @@ describe('finding constraints', () => {
   test('when no constraint exists should return an empty Set', () => {
     const domain = generateDomain([1], 5)
     const actual = searchForConstraints(domain)
+
     const expected = new Set()
     expect(actual).toEqual(expected)
   })
@@ -33,6 +34,7 @@ describe('finding constraints', () => {
   test('when a domain has a length of one should return the remaining Set', () => {
     const domain = generateDomain([2, 2], 5)
     const actual = searchForConstraints(domain)
+
     const expected = new Set([1, 2, 4, 5, -3])
     expect(actual).toEqual(expected)
   })
@@ -40,6 +42,7 @@ describe('finding constraints', () => {
   test('when a single constraint exists should return the constraint', () => {
     const domain = generateDomain([2], 3)
     const actual = searchForConstraints(domain)
+
     const expected = new Set([2])
     expect(actual).toEqual(expected)
   })
@@ -47,7 +50,20 @@ describe('finding constraints', () => {
   test('when multiple constraint exists should return all constraints', () => {
     const domain = generateDomain([3], 4)
     const actual = searchForConstraints(domain)
+
     const expected = new Set([2, 3])
+    expect(actual).toEqual(expected)
+  })
+})
+
+describe('applying constraints', () => {
+  test('should apply constraint', () => {
+    const constraint = 1
+    const domain = [new Set([1, 2, 3]), new Set([]), new Set([-2, 3])]
+
+    const actual = applyConstraint(constraint, domain)
+    const expected = [new Set([1, 2, 3])]
+
     expect(actual).toEqual(expected)
   })
 })
