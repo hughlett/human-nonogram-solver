@@ -1,3 +1,1 @@
-# picross solver
-
-Hello
+# Human Nonogram Solver
