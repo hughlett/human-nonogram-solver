@@ -1,6 +1,14 @@
 import { reduceDomain } from '../utils/constraint'
 import { generateAllDomains } from '../utils/domain'
 
+/**
+ *
+ * @param rows
+ * @param rowLength
+ * @param columns
+ * @param columnLength
+ * @returns
+ */
 export function solve(
   rows: Array<Array<number>>,
   rowLength: number,

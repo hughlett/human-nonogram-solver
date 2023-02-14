@@ -1,3 +1,15 @@
+/**
+ *
+ * @param clue
+ * @param domainLength
+ * @param domain
+ * @param value
+ * @param lastStartIndex
+ * @param lastClueValue
+ * @param clueIndex
+ * @param remainingClueSum
+ * @returns
+ */
 function generateDomainHelper(
   clue: Array<number>,
   domainLength: number,
@@ -47,6 +59,12 @@ function generateDomainHelper(
   }
 }
 
+/**
+ *
+ * @param clue
+ * @param domainLength
+ * @returns
+ */
 export function generateDomain(
   clue: Array<number>,
   domainLength: number
@@ -63,6 +81,12 @@ export function generateDomain(
   return domain
 }
 
+/**
+ *
+ * @param clues
+ * @param domainLength
+ * @returns
+ */
 export function generateAllDomains(
   clues: Array<Array<number>>,
   domainLength: number

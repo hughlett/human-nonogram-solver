@@ -1,11 +1,28 @@
+/**
+ *
+ * @param a
+ * @param b
+ * @returns
+ */
 function intersect(a: Set<number>, b: Set<number>): Set<number> {
   return new Set([...a].filter((x) => b.has(x)))
 }
 
+/**
+ *
+ * @param domain
+ * @returns
+ */
 export function searchForConstraints(domain: Array<Set<number>>): Set<number> {
   return domain.reduce((a, b) => intersect(a, b))
 }
 
+/**
+ *
+ * @param constraint
+ * @param domain
+ * @returns
+ */
 export function applyConstraint(
   constraint: number,
   domain: Array<Set<number>>
@@ -15,6 +32,13 @@ export function applyConstraint(
   })
 }
 
+/**
+ *
+ * @param domain
+ * @param domainIndex
+ * @param siblingDomains
+ * @returns
+ */
 export function reduceDomain(
   domain: Array<Set<number>>,
   domainIndex: number,
