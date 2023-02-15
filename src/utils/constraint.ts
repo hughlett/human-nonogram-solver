@@ -5,7 +5,10 @@
  * @returns
  */
 function intersect(a: Set<number>, b: Set<number>): Set<number> {
-  return new Set([...a].filter((x) => b.has(x)))
+  if (a.size < b.size) {
+    return new Set([...a].filter((x) => b.has(x)))
+  }
+  return new Set([...b].filter((x) => a.has(x)))
 }
 
 /**
