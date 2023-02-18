@@ -23,52 +23,14 @@ on:
       - '.vscode/**'
       - '.prettierignore'
       - '.github/**'
+  workflow_call:
 
 jobs:
   code-quality:
-    name: Check format and lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
-
-      - name: Install project dependencies
-        run: yarn
-
-      - name: Check formatting
-        run: yarn format:check
-
-      - name: Lint
-        run: yarn lint
+    name: Code Quality
+    uses: ./.github/workflows/code-quality.yml
 
   build:
-    name: Build and test using Node.js ${{ matrix.node-version }}
-    runs-on: ubuntu-latest
+    name: Build
     needs: code-quality
-
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
-
-      - name: Install project dependencies
-        run: yarn
-
-      - name: Build
-        run: yarn build
-
-      - name: Run tests
-        run: yarn test
+    uses: ./.github/workflows/build-matrix.yml
