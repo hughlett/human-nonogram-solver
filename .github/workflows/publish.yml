@@ -41,11 +41,8 @@ jobs:
 
   publish-npm:
     name: Publish to NPM
-    # needs: ci-checks
+    needs: ci-checks
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
