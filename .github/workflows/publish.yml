@@ -25,7 +25,6 @@ jobs:
           node-version: 18.x
           registry-url: 'https://npm.pkg.github.com'
           cache: 'yarn'
-          scope: '@drew-hughlett'
 
       - name: Install project dependencies
         run: yarn install --frozen-lockfile --immutable
