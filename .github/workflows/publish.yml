@@ -8,12 +8,13 @@ on:
     types: [published]
 
 jobs:
-  # ci-checks:
-  #   name: CI checks
-  #   uses: ./.github/workflows/ci.yml
+  ci-checks:
+    name: CI checks
+    uses: ./.github/workflows/ci.yml
 
-  publish-npm:
-    # needs: ci-checks
+  publish-ghp:
+    name: Publish package
+    needs: ci-checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
