@@ -52,7 +52,6 @@ jobs:
         with:
           node-version: 18.x
           registry-url: https://registry.npmjs.org/
-          scope: '@drew-hughlett'
           cache: 'yarn'
 
       - name: Install project dependencies
