@@ -5,7 +5,12 @@
     "jest": true
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "ignorePatterns": ["/lib/**/*", "/coverage/**/*", "/node_modules/**/*"],
+  "ignorePatterns": [
+    "/lib/**/*",
+    "/coverage/**/*",
+    "/node_modules/**/*",
+    "jest.config.ts"
+  ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

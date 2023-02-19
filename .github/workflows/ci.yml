@@ -26,8 +26,8 @@ on:
   workflow_call:
 
 jobs:
-  code-quality:
-    name: Code quality
+  format-check:
+    name: Check formatting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -44,13 +44,37 @@ jobs:
       - name: Check formatting
         run: yarn format:check
 
-      - name: Lint
-        run: yarn lint
+  lint:
+    name: Run eslint scanning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    needs: format-check
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install ESLint
+        run: |
+          npm install eslint@8.10.0
+          npm install @microsoft/eslint-formatter-sarif@2.1.7
+      - name: Run ESLint
+        run: npx eslint .
+          --format @microsoft/eslint-formatter-sarif
+          --output-file eslint-results.sarif
+        continue-on-error: true
+
+      - name: Upload analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: eslint-results.sarif
+          wait-for-processing: true
 
   build:
     name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
-    needs: code-quality
+    needs: lint
 
     strategy:
       matrix:
