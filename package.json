@@ -1,5 +1,5 @@
 {
-  "name": "@drew-hughlett/human-nonogram-solver",
+  "name": "@drewrh/human-nonogram-solver",
   "version": "1.0.0",
   "description": "A simple nonogram solver meant for solving human friendly puzzles",
   "keywords": [
