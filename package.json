@@ -1,5 +1,5 @@
 {
-  "name": "@drew-hugh/human-nonogram-solver",
+  "name": "@hughlett/human-nonogram-solver",
   "version": "1.0.0",
   "description": "A simple nonogram solver meant for solving human friendly puzzles",
   "keywords": [
@@ -9,8 +9,8 @@
     "hanjie",
     "griddlers"
   ],
-  "homepage": "https://github.com/drew-hugh/human-nonogram-solver#readme",
-  "bugs": "https://github.com/drew-hugh/human-nonogram-solver/issues",
+  "homepage": "https://github.com/hughlett/human-nonogram-solver#readme",
+  "bugs": "https://github.com/hughlett/human-nonogram-solver/issues",
   "license": "MIT",
   "author": "Drew Hughlett <drewrh04@gmail.com> (https://drewhughlett.com/)",
   "exports": {
@@ -30,7 +30,7 @@
     "lib/**/*"
   ],
   "main": "./lib/cjs/index.js",
-  "repository": "github:drew-hugh/human-nonogram-solver",
+  "repository": "github:hughlett/human-nonogram-solver",
   "scripts": {
     "clean": "rm -rf ./lib",
     "build": "npm-run-all clean build:esm build:cjs",
