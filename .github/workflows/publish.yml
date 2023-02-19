@@ -9,13 +9,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ci-checks:
-  #   name: CI checks
-  #   uses: ./.github/workflows/ci.yml
+  ci-checks:
+    name: CI checks
+    uses: ./.github/workflows/ci.yml
 
   publish-ghp:
     name: Publish to GitHub Packages
-    # needs: ci-checks
+    needs: ci-checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
