@@ -5,4 +5,6 @@
 [![GitHub](https://github.com/hughlett/human-nonogram-solver/actions/workflows/ci.yml/badge.svg)](https://github.com/hughlett/human-nonogram-solver/actions/workflows/ci.yml)
 [![Publish](https://github.com/hughlett/human-nonogram-solver/actions/workflows/publish.yml/badge.svg)](https://github.com/hughlett/human-nonogram-solver/actions/workflows/publish.yml)
 
+[![Coverage Status](https://coveralls.io/repos/github/hughlett/human-nonogram-solver/badge.svg?branch=main)](https://coveralls.io/github/hughlett/human-nonogram-solver?branch=main)
+
 ![GitHub](https://img.shields.io/github/license/hughlett/human-nonogram-solver)
