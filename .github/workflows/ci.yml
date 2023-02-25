@@ -26,11 +26,15 @@ on:
   workflow_call:
 
 jobs:
-  format-check:
-    name: Check formatting
+  format-lint:
+    name: Check format and lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -44,25 +48,8 @@ jobs:
       - name: Check formatting
         run: yarn format:check
 
-  lint:
-    name: Run eslint scanning
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    needs: format-check
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install ESLint
-        run: |
-          npm install eslint@8.10.0
-          npm install @microsoft/eslint-formatter-sarif@2.1.7
       - name: Run ESLint
-        run: npx eslint .
-          --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
+        run: yarn lint:ci
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
@@ -71,17 +58,23 @@ jobs:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
 
+      - name: Coveralls
+        uses: coverallsapp/github-action@v1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
-    needs: lint
+    needs: ci
 
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
