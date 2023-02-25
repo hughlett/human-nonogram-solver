@@ -59,6 +59,9 @@ jobs:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
 
+      - name: Test
+        run: yarn test:ci
+
       - name: Coveralls
         uses: coverallsapp/github-action@v1.2.0
         with:
