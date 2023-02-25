@@ -24,6 +24,7 @@ on:
       - '.prettierignore'
       - '.github/**'
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   format-lint:
